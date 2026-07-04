@@ -1,4 +1,4 @@
-# Zotero Root PDF Matcher
+# Attach Finder
 
 A Zotero plugin that automatically matches and attaches local PDFs to items in your library based on DOI matching.
 
@@ -15,7 +15,7 @@ A Zotero plugin that automatically matches and attaches local PDFs to items in y
 ## Installation
 
 ### From Release
-1. Download the latest `.xpi` file from [Releases](https://github.com/fdossi/Zotero-Root-PDF-Matcher/releases)
+1. Download the latest `.xpi` file from [Releases](https://github.com/fdossi/Attach-Finder/releases)
 2. In Zotero, go to **Tools → Add-ons**
 3. Click the gear icon and select **Install Add-on from File...**
 4. Select the downloaded `.xpi` file
@@ -23,25 +23,25 @@ A Zotero plugin that automatically matches and attaches local PDFs to items in y
 ### Manual Development Install
 1. Clone this repository:
    ```bash
-   git clone https://github.com/fdossi/Zotero-Root-PDF-Matcher.git
+   git clone https://github.com/fdossi/Attach-Finder.git
    ```
 2. In Zotero, create a proxy entry for development:
    - Open your Zotero profile folder
    - Navigate to `extensions` directory
-   - Create a file named `zotero-root-pdf-matcher@fabio.dev` (no extension)
+   - Create a file named `attach-finder@fabio.dev` (no extension)
    - Add the full path to the repository folder (one line, no trailing newline)
 
 ## Usage
 
 ### Initial Setup
 1. Open Zotero and select one or more items with DOI fields
-2. Go to **Tools → Matcher de PDFs → Definir pasta raiz de PDFs**
+2. Go to **Tools → Attach Finder → Definir pasta raiz de PDFs**
 3. Select the root folder containing your PDF files
 4. The plugin will scan subdirectories to build a cache
 
 ### Running Matches
 1. Select one or more Zotero items with DOI values
-2. Go to **Tools → Matcher de PDFs → Anexar PDFs por DOI**
+2. Go to **Tools → Attach Finder → Anexar PDFs por DOI**
 3. The plugin scans for matching PDFs and attaches them to items
 4. A summary dialog shows results (attached, not found, failed)
 
@@ -55,9 +55,9 @@ A Zotero plugin that automatically matches and attaches local PDFs to items in y
 
 The plugin stores preferences in Zotero's settings:
 
-- `extensions.zoteroRootPdfMatcher.rootPath`: Path to your PDF root folder
-- `extensions.zoteroRootPdfMatcher.scanMaxDepth`: Maximum directory depth to scan (default: 5)
-- `extensions.zoteroRootPdfMatcher.confirmBeforeFullScan`: Ask before scanning many directories
+- `extensions.attachFinder.rootPath`: Path to your PDF root folder
+- `extensions.attachFinder.scanMaxDepth`: Maximum directory depth to scan (default: 5)
+- `extensions.attachFinder.confirmBeforeFullScan`: Ask before scanning many directories
 
 ## How It Works
 
@@ -113,11 +113,11 @@ icon.svg          - Plugin icon
 Create a `.xpi` file:
 ```bash
 # Windows PowerShell
-Compress-Archive -Path manifest.json,bootstrap.js -DestinationPath plugin.zip -CompressionLevel Optimal
-Rename-Item plugin.zip plugin.xpi
+Compress-Archive -Path manifest.json,bootstrap.js,icon.svg -DestinationPath Attach-Finder-1.1.3.zip -CompressionLevel Optimal
+Rename-Item Attach-Finder-1.1.3.zip Attach-Finder-1.1.3.xpi
 
 # Linux/macOS
-zip -r plugin.xpi manifest.json bootstrap.js
+zip -r Attach-Finder-1.1.3.xpi manifest.json bootstrap.js icon.svg
 ```
 
 ### Compatibility
@@ -137,9 +137,14 @@ Contributions are welcome! Please:
 
 ## Issues
 
-Found a bug or have a feature request? Please open an issue on [GitHub Issues](https://github.com/fdossi/Zotero-Root-PDF-Matcher/issues).
+Found a bug or have a feature request? Please open an issue on [GitHub Issues](https://github.com/fdossi/Attach-Finder/issues).
 
 ## Changelog
+
+### v1.1.3 (2026-07-04)
+- Renamed plugin branding to Attach Finder
+- Updated IDs, links, and citation metadata for Attach-Finder repository
+- Added refreshed plugin icon
 
 ### v1.1.2 (2026-07-03)
 - Initial release

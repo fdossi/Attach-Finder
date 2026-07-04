@@ -1,19 +1,19 @@
 const { FilePicker } = ChromeUtils.importESModule("chrome://zotero/content/modules/filePicker.mjs");
 
-const PREF_ROOT_PATH = "extensions.zoteroRootPdfMatcher.rootPath";
-const PREF_SCAN_MAX_DEPTH = "extensions.zoteroRootPdfMatcher.scanMaxDepth";
-const PREF_CONFIRM_FULL_SCAN = "extensions.zoteroRootPdfMatcher.confirmBeforeFullScan";
-const MENU_PLUGIN_ID = "zotero-root-pdf-matcher@fabio.dev";
-const MENU_ID = "zotero-root-pdf-matcher-menu";
+const PREF_ROOT_PATH = "extensions.attachFinder.rootPath";
+const PREF_SCAN_MAX_DEPTH = "extensions.attachFinder.scanMaxDepth";
+const PREF_CONFIRM_FULL_SCAN = "extensions.attachFinder.confirmBeforeFullScan";
+const MENU_PLUGIN_ID = "attach-finder@fabio.dev";
+const MENU_ID = "attach-finder-menu";
 const DOI_REGEX = /\b10\.\d{4,9}\/[\-._;()/:A-Z0-9]+\b/i;
 const MAX_HEADER_BYTES = 2048;
-const EXTRA_TAG = "PDF anexado automaticamente via Root Matcher";
-const CACHE_FILE_NAME = "root-pdf-matcher-cache.json";
+const EXTRA_TAG = "PDF anexado automaticamente via Attach Finder";
+const CACHE_FILE_NAME = "attach-finder-cache.json";
 const CACHE_VERSION = 1;
 const HISTORY_LIMIT = 30;
 const HISTORY_PREVIEW_LIMIT = 10;
-const APP_TITLE = "Matcher de PDFs";
-const MENU_SUBMENU_LABEL = "Matcher de PDFs";
+const APP_TITLE = "Attach Finder";
+const MENU_SUBMENU_LABEL = "Attach Finder";
 const MENU_ACTION_RUN_LABEL = "Anexar PDFs por DOI";
 const MENU_ACTION_CONFIG_LABEL = "Definir pasta raiz de PDFs";
 const MENU_ACTION_REINDEX_LABEL = "Reindexar cache";
@@ -35,12 +35,12 @@ const REINDEX_ESTIMATE_PDF_SCAN_LIMIT = 1200;
 let registeredMenuID = null;
 
 function startup() {
-  Zotero.debug("Root PDF Matcher | Iniciado");
+  Zotero.debug("Attach Finder | Iniciado");
   registerOfficialMenus();
 }
 
 function shutdown() {
-  Zotero.debug("Root PDF Matcher | Desativado");
+  Zotero.debug("Attach Finder | Desativado");
   unregisterOfficialMenus();
 }
 
@@ -112,8 +112,8 @@ function registerOfficialMenus() {
   });
 
   if (!menuID) {
-    Zotero.logError(new Error("Root PDF Matcher | Zotero.MenuManager.registerMenu retornou falso"));
-    throw new Error("Root PDF Matcher | Falha ao registrar menu oficial");
+    Zotero.logError(new Error("Attach Finder | Zotero.MenuManager.registerMenu retornou falso"));
+    throw new Error("Attach Finder | Falha ao registrar menu oficial");
   }
 
   registeredMenuID = menuID;
@@ -139,13 +139,13 @@ async function chooseAndSaveRootFolder() {
   fp.init(win, "Selecione a pasta raiz de PDFs", fp.modeGetFolder);
   const rv = await fp.show();
   if (rv !== fp.returnOK || !fp.file) {
-    Zotero.debug("Root PDF Matcher | Selecao de pasta cancelada");
+    Zotero.debug("Attach Finder | Selecao de pasta cancelada");
     return null;
   }
 
   const rootPath = fp.file.path;
   Zotero.Prefs.set(PREF_ROOT_PATH, rootPath);
-  Zotero.debug(`Root PDF Matcher | Pasta raiz salva: ${rootPath}`);
+  Zotero.debug(`Attach Finder | Pasta raiz salva: ${rootPath}`);
   return rootPath;
 }
 
@@ -173,13 +173,13 @@ async function runMatcher() {
 
   const selectionResult = await getCandidateItems();
   if (selectionResult.cancelled) {
-    Zotero.debug("Root PDF Matcher | Operacao cancelada pelo usuario");
+    Zotero.debug("Attach Finder | Operacao cancelada pelo usuario");
     return;
   }
 
   const items = selectionResult.items;
   if (!items.length) {
-    Zotero.debug("Root PDF Matcher | Nenhum item elegivel encontrado");
+    Zotero.debug("Attach Finder | Nenhum item elegivel encontrado");
     return;
   }
 
@@ -194,7 +194,7 @@ async function runMatcher() {
   }
 
   if (!targetDOIs.size) {
-    Zotero.debug("Root PDF Matcher | Nenhum DOI valido entre os itens elegiveis");
+    Zotero.debug("Attach Finder | Nenhum DOI valido entre os itens elegiveis");
     return;
   }
 
@@ -236,7 +236,7 @@ async function runMatcher() {
 
   let scannedPdfCount = 0;
   if (missingDOIs.size) {
-    Zotero.debug(`Root PDF Matcher | Escaneando PDFs em: ${rootPath} (faltantes: ${missingDOIs.size})`);
+    Zotero.debug(`Attach Finder | Escaneando PDFs em: ${rootPath} (faltantes: ${missingDOIs.size})`);
     const scanResult = await buildDoiFileMap(rootPath, missingDOIs, scanMaxDepth);
     scannedPdfCount = scanResult.pdfScanned;
     for (const [doi, filePath] of scanResult.doiToFileMap.entries()) {
@@ -285,7 +285,7 @@ async function runMatcher() {
   });
   await writeCache(cache);
 
-  Zotero.debug(`Root PDF Matcher | Concluido. PDFs anexados: ${attachedCount}`);
+  Zotero.debug(`Attach Finder | Concluido. PDFs anexados: ${attachedCount}`);
   showExecutionReport({
     processedCount: items.length,
     attachedCount,
@@ -560,7 +560,7 @@ async function reindexCacheInteractive() {
 
   const scanMaxDepth = getScanMaxDepth();
   if (!(await confirmLargeReindex(rootPath, scanMaxDepth))) {
-    Zotero.debug("Root PDF Matcher | Reindexacao cancelada pelo usuario");
+    Zotero.debug("Attach Finder | Reindexacao cancelada pelo usuario");
     return;
   }
 

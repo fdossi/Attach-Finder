@@ -1,11 +1,11 @@
 {
   "addons": {
-    "zotero-root-pdf-matcher@fabio.dev": {
+    "attach-finder@fabio.dev": {
       "updates": [
         {
-          "version": "1.1.2",
-          "update_link": "https://github.com/fdossi/Zotero-Root-PDF-Matcher/releases/download/v1.1.2/Zotero-Root-PDF-Matcher-1.1.2.xpi",
-          "update_hash": "sha256:60316909EE1D3A8844EFB3F6892E52878CE9FB02A0449E4596F5B1C89D850E9F",
+          "version": "1.1.3",
+          "update_link": "https://github.com/fdossi/Attach-Finder/releases/download/v1.1.3/Attach-Finder-1.1.3.xpi",
+          "update_hash": "sha256:18A83B64C3F95D7C065C3E65B976661E43DDD1B7FF93294B18E96A35E0824AD9",
           "applications": {
             "zotero": {
               "strict_min_version": "7.0"

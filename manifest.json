@@ -1,14 +1,14 @@
 {
   "manifest_version": 2,
-  "name": "Root PDF Matcher",
-  "version": "1.1.2",
+  "name": "Attach Finder",
+  "version": "1.1.3",
   "description": "Match local PDFs by DOI.",
-  "homepage_url": "https://github.com/fabio/Zotero-Root-PDF-Matcher",
+  "homepage_url": "https://github.com/fdossi/Attach-Finder",
   "author": "Fabio",
   "applications": {
     "zotero": {
-      "id": "zotero-root-pdf-matcher@fabio.dev",
-      "update_url": "https://raw.githubusercontent.com/fabio/Zotero-Root-PDF-Matcher/main/updates.json",
+      "id": "attach-finder@fabio.dev",
+      "update_url": "https://raw.githubusercontent.com/fdossi/Attach-Finder/main/updates.json",
       "strict_min_version": "7.0",
       "strict_max_version": "9.999.*"
     }
