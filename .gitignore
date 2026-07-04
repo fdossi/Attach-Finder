@@ -1,0 +1,39 @@
+# Build outputs
+*.xpi
+*.zip
+*.tar.gz
+dist/
+build/
+
+# Development
+node_modules/
+.DS_Store
+*.sublime-workspace
+.vscode/settings.json
+
+# Temporary files
+tmp-*/
+*.tmp
+*.log
+*~
+*.bak
+
+# Cache
+.cache/
+*.cache
+
+# OS files
+Thumbs.db
+.AppleDouble
+.LSOverride
+._*
+
+# IDE
+.idea/
+*.swp
+*.swo
+
+# Profile/test artifacts
+addon-backup-*/
+startupCache/
+extensions.json.bak-*
