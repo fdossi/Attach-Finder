@@ -122,7 +122,7 @@ zip -r plugin.xpi manifest.json bootstrap.js
 
 ### Compatibility
 - **Minimum**: Zotero 7.0
-- **Tested up to**: Zotero 9.999.*
+- **Tested up to**: Zotero 9.0.5.*
 
 ## License
 
